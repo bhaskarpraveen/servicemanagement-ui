@@ -1,0 +1,13 @@
+.fields1{
+    display: flex;
+    justify-content: flex-start
+}
+
+.extra-field{
+    margin-right: 3%;
+}
+
+.edit-field1{
+    width: 55%;
+}
+

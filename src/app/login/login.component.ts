@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("LOGIN FAILED", error.error.message);
+        console.error("LOGIN FAILED", error);
         this.service.openSnackBar(`Unable to Login please check credentials or try again`, false);
         this.isLoading = false;
       }

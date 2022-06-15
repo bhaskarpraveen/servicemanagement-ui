@@ -18,7 +18,7 @@ export class tableFilter {
 })
 export class ServiceBookingComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'product_id', 'user_id', 'problem', 'description', 'status', 'reqdate', 'delete'];
+  displayedColumns: string[] = ['id', 'problem', 'details', 'edit', 'delete'];
   dataSource: any;
 
   isLoading: boolean = false;
@@ -75,7 +75,7 @@ export class ServiceBookingComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("Get Service Requests Failed", error.error.message);
+        console.error("Get Service Requests Failed", error);
         this.service.openSnackBar(`Unable to fetch service requests please try again`, false);
         this.isLoading = false;
         this.showError = true;
@@ -110,11 +110,37 @@ export class ServiceBookingComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("DELETE Service Request FAILED", error.error.message);
+        console.error("DELETE Service Request FAILED", error);
         this.service.openSnackBar(`Unable to delete service request please check input details or try again`, false);
         this.isLoading = false;
       }
     )
+  }
+
+  modeDetails(element: any) {
+    const dialogRef = this.dialog.open(ViewServiceRequest, {
+      width: '900px',
+      data: element
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        //closed modal
+
+      }
+    })
+  }
+
+  editRequest(element: any) {
+    const dialogRef = this.dialog.open(EditServiceRequest, {
+      width: '900px',
+      data: element
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        //closed modal
+        if (result['event'] === 'success') this.ngOnInit();
+      }
+    })
   }
 
   fakeServiceRequestsData = [
@@ -122,7 +148,7 @@ export class ServiceBookingComponent implements OnInit {
       "id": 1,
       "productid": 2,
       "userid": 1,
-      "reqdate": null,
+      "reqdate": '2022-06-15',
       "problem": "display",
       "description": "display problem",
       "status": "resolved"
@@ -156,7 +182,8 @@ export class AddServiceRequest {
       productId: ['', [Validators.required]],
       problem: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      status: ['', [Validators.required]]
+      status: ['', [Validators.required]],
+      reqdate: ['', [Validators.required]]
     })
   }
 
@@ -171,8 +198,17 @@ export class AddServiceRequest {
       "userid": sessionStorage.getItem("userId"),
       "problem": this.serviceRequestForm.value.problem,
       "description": this.serviceRequestForm.value.description,
-      "status": this.serviceRequestForm.value.status
+      "status": this.serviceRequestForm.value.status,
+      "reqdate": this.serviceRequestForm.value.reqdate
     };
+
+    var date = new Date(details['reqdate']);
+    var mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    var finalDate = [date.getFullYear(), mnth, day].join("-");
+
+    details['reqdate'] = finalDate;
+    console.log(details);
 
     this.service.addServiceRequest(details).subscribe(
       (data: any) => {
@@ -186,10 +222,83 @@ export class AddServiceRequest {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("ADD Product FAILED", error.error.message);
+        console.error("ADD Product FAILED", error);
         this.service.openSnackBar(`Unable to add service request please check input details or try again`, false);
         this.isLoading = false;
       }
     )
   }
 }
+
+@Component({
+  selector: 'view-service-request',
+  templateUrl: './templates/view-service-request.component.html',
+  styleUrls: ['./service-booking.component.css', '../user-management/user-management.component.css']
+})
+export class ViewServiceRequest {
+  constructor(public dialogRef: MatDialogRef<ViewServiceRequest>, @Inject(MAT_DIALOG_DATA) public data: any) {
+
+  }
+}
+
+
+@Component({
+  selector: 'edit-service-request',
+  templateUrl: './templates/edit-service-request.component.html',
+  styleUrls: ['./service-booking.component.css', '../user-management/user-management.component.css']
+})
+export class EditServiceRequest {
+  editServiceRequestForm: FormGroup;
+  showPassword: boolean = false;
+  isLoading: boolean = false;
+
+  constructor(public dialogRef: MatDialogRef<EditServiceRequest>, @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private service: BackendApiServiceService) {
+    this.editServiceRequestForm = this.fb.group({
+      problem: [data['problem'], [Validators.required]],
+      description: [data['description'], [Validators.required]],
+      status: [data['status'], [Validators.required]],
+      reqdate: [data['reqdate'], [Validators.required]]
+    })
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  edit() {
+    this.isLoading = true;
+    let details = {
+      "problem": this.editServiceRequestForm.value.problem,
+      "description": this.editServiceRequestForm.value.description,
+      "status": this.editServiceRequestForm.value.status,
+      "reqdate": this.editServiceRequestForm.value.reqdate
+    };
+
+    var date = new Date(details['reqdate']);
+    var mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    var finalDate = [date.getFullYear(), mnth, day].join("-");
+
+    details['reqdate'] = finalDate;
+    console.log(details);
+
+    this.service.editServiceRequest(details, this.data['productid']).subscribe(
+      (data: any) => {
+        if (data['data'] && data['statusCode'] && data['statusCode'] >= 200 && data['statusCode'] <= 299) {
+          this.service.openSnackBar(`${data['data']['problem']} Updated successfully`, true);
+          this.dialogRef.close({ event: 'Success' })
+        }
+        else {
+          this.service.openSnackBar('Unable to process request! Invalid response! Check logs for more details', false);
+        }
+        this.isLoading = false;
+      },
+      (error: any) => {
+        console.error("ADD Product FAILED", error);
+        this.service.openSnackBar(`Unable to Update service request please check input details or try again`, false);
+        this.isLoading = false;
+      }
+    )
+  }
+}
+

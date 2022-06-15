@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>Edit Service Request | {{data.problem}}</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="form">
+        <form [formGroup]="editServiceRequestForm">
+
+
+            <div class="fields1">
+                <mat-form-field appearance="outline" class="extra-field">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option value="pending">Pending</mat-option>
+                        <mat-option value="resolved">Resolved</mat-option>
+                    </mat-select>
+                    <!-- <input type="text" matInput placeholder="Placeholder" formControlName="status"> -->
+                    <mat-error *ngIf="editServiceRequestForm.controls['status'].hasError('required')">Status is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Problem Title</mat-label>
+                    <input type="text" matInput placeholder="Placeholder" formControlName="problem">
+                    <mat-error *ngIf="editServiceRequestForm.controls['problem'].hasError('required')">Problem title is
+                        required
+                    </mat-error>
+                    <mat-icon matSuffix>closed_caption</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="margin-left: 3%;">
+                    <mat-label>Requested date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="reqdate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="editServiceRequestForm.controls['reqdate'].hasError('required')">Requested date is
+                        required
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="sub-fields">
+
+
+
+
+                <mat-form-field appearance="outline" class="edit-field1">
+                    <mat-label>Description</mat-label>
+                    <textarea type="textarea" matInput placeholder="Placeholder"
+                        formControlName="description"></textarea>
+                    <mat-error *ngIf="editServiceRequestForm.controls['description'].hasError('required')">Description
+                        is
+                        required
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div>
+
+        </form>
+    </div>
+
+    <app-pre-loader *ngIf="isLoading"></app-pre-loader>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!editServiceRequestForm.valid"
+        (click)="edit()">Update Service Request</button>
+</mat-dialog-actions>

@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ProductManagementComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'make', 'model', 'cost', 'createdDate', 'edit', 'delete'];
+  displayedColumns: string[] = ['id', 'name', 'details', 'edit', 'delete'];
   dataSource: any;
 
   isLoading: boolean = false;
@@ -30,6 +30,19 @@ export class ProductManagementComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  viewDetails(element: any) {
+    const dialogRef = this.dialog.open(ViewProduct, {
+      width: '900px',
+      data: element
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        //closed modal
+
+      }
+    })
   }
 
   getProducts() {
@@ -60,7 +73,7 @@ export class ProductManagementComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("Get products FAILED", error.error.message);
+        console.error("Get products FAILED", error);
         this.service.openSnackBar(`Unable to fetch products please try again`, false);
         this.isLoading = false;
         this.showError = true;
@@ -96,11 +109,24 @@ export class ProductManagementComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("DELETE Product FAILED", error.error.message);
+        console.error("DELETE Product FAILED", error);
         this.service.openSnackBar(`Unable to delete product please check input details or try again`, false);
         this.isLoading = false;
       }
     )
+  }
+
+  editProduct(element: any) {
+    const dialogRef = this.dialog.open(EditSelectedProduct, {
+      width: '900px',
+      data: element
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        //closed modal
+        if (result['event'] === 'success') this.ngOnInit();
+      }
+    })
   }
 
   fakeProductsData = [
@@ -171,7 +197,7 @@ export class AddNewProduct {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("ADD Product FAILED", error.error.message);
+        console.error("ADD Product FAILED", error);
         this.service.openSnackBar(`Unable to add product please check input details or try again`, false);
         this.isLoading = false;
       }
@@ -179,3 +205,70 @@ export class AddNewProduct {
   }
 }
 
+
+@Component({
+  selector: 'edit-product',
+  templateUrl: './templates/edit-product.component.html',
+  styleUrls: ['./product-management.component.css', '../user-management/user-management.component.css']
+})
+export class EditSelectedProduct {
+
+  productForm: FormGroup;
+  showPassword: boolean = false;
+  isLoading: boolean = false;
+
+  constructor(public dialogRef: MatDialogRef<EditSelectedProduct>, @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private service: BackendApiServiceService) {
+    this.productForm = this.fb.group({
+      name: [data['name'], [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-z]).{1,}/)]],
+      make: [data['make'], [Validators.required]],
+      model: [data['model'], [Validators.required]],
+      cost: [data['cost'], [Validators.required]]
+    })
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  editProduct() {
+    this.isLoading = true;
+    let details = {
+      "name": this.productForm.value.name,
+      "make": this.productForm.value.make,
+      "model": this.productForm.value.model,
+      "cost": this.productForm.value.cost
+    };
+
+    this.service.editProduct(details, this.data['id']).subscribe(
+      (data: any) => {
+        if (data['data'] && data['statusCode'] && data['statusCode'] >= 200 && data['statusCode'] <= 299) {
+          this.service.openSnackBar(`${data['data']['name']} Updated successfully`, true);
+          this.dialogRef.close({ event: 'Success' })
+        }
+        else {
+          this.service.openSnackBar('Unable to process request! Invalid response! Check logs for more details', false);
+        }
+        this.isLoading = false;
+      },
+      (error: any) => {
+        console.error("Updated Product FAILED", error);
+        this.service.openSnackBar(`Unable to Updated product please check input details or try again`, false);
+        this.isLoading = false;
+      }
+    )
+  }
+}
+
+
+
+@Component({
+  selector: 'view-product',
+  templateUrl: './templates/view-product.component.html',
+  styleUrls: ['./product-management.component.css', '../user-management/user-management.component.css']
+})
+export class ViewProduct {
+
+  constructor(public dialogRef: MatDialogRef<AddNewProduct>, @Inject(MAT_DIALOG_DATA) public data: any) {
+
+  }
+}

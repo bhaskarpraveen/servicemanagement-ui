@@ -5,7 +5,7 @@
 
     <mat-form-field appearance="fill" class="full-field">
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search Products" #input>
     </mat-form-field>
 
 
@@ -23,39 +23,24 @@
         </ng-container>
 
 
-        <ng-container matColumnDef="make">
-            <th mat-header-cell *matHeaderCellDef> Make </th>
-            <td mat-cell *matCellDef="let element"> {{element.make}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="model">
-            <th mat-header-cell *matHeaderCellDef> Product Model </th>
-            <td mat-cell *matCellDef="let element"> {{element.model}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="cost">
-            <th mat-header-cell *matHeaderCellDef> Product Cost </th>
-            <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="createdDate">
-            <th mat-header-cell *matHeaderCellDef> Created Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+        <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Details </th>
+            <td mat-cell *matCellDef="let element" style="cursor: pointer;">
+                <button mat-flat-button color="primary" (click)="viewDetails(element)">View More details</button>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef> Edit Product </th>
             <td mat-cell *matCellDef="let element" style="cursor: pointer;">
-                <mat-icon>edit</mat-icon>
+                <button mat-flat-button color="primary" (click)="editProduct(element)">Update Product</button>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Delete Product </th>
-            <td mat-cell *matCellDef="let element" (click)="deleteProduct(element.id)" style="cursor: pointer;">
-                <mat-icon>delete</mat-icon>
+            <td mat-cell *matCellDef="let element" style="cursor: pointer;">
+                <button mat-flat-button color="warn" (click)="deleteProduct(element.id)">Delete Product</button>
             </td>
         </ng-container>
 

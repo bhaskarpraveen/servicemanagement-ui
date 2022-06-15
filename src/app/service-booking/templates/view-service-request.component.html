@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>More Details | {{data.problem}}</h2>
+<mat-dialog-content class="mat-typography">
+
+
+    <mat-list>
+        <mat-list-item>
+            <mat-icon mat-list-icon>tag</mat-icon>Service ID
+            <div mat-line> {{data.id}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>tag</mat-icon>Product ID
+            <div mat-line>{{data.productid}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>tag</mat-icon>User ID
+            <div mat-line>{{data.userid}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>closed_caption</mat-icon>Problem
+            <div mat-line>{{data.problem}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>today</mat-icon>Requested Date
+            <div mat-line>{{data.reqdate}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>list</mat-icon>Description
+            <div mat-line>{{data.description}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>published_with_changes</mat-icon>Status
+            <div mat-line>{{data.status}}</div>
+        </mat-list-item>
+
+
+
+    </mat-list>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
