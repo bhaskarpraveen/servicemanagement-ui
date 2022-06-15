@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>Add New User</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="form">
+        <form [formGroup]="registrationForm" class="fields">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="name">
+                <mat-error *ngIf="registrationForm.controls['name'].hasError('required')">First name is
+                    required
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls['name'].hasError('pattern')">First name must
+                    contain
+                    only alphabetic characters</mat-error>
+                <mat-icon matSuffix>account_circle</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="phoneNumber">
+                <mat-error *ngIf="registrationForm.controls['phoneNumber'].hasError('required')">Phone number is
+                    required</mat-error>
+                <mat-error *ngIf="registrationForm.controls['phoneNumber'].hasError('pattern')">Invalid Phone number
+                </mat-error>
+                <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="emailAddress">
+                <mat-error *ngIf="registrationForm.controls['emailAddress'].hasError('email')">Invalid email
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls['emailAddress'].hasError('required')">Email is required
+                </mat-error>
+                <mat-icon matSuffix>alternate_email</mat-icon>
+            </mat-form-field>
+
+            <div class="sub-fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="showPassword ? 'text' : 'password' " matInput placeholder="Placeholder"
+                        formControlName="password">
+                    <mat-error *ngIf="registrationForm.controls['password'].hasError('required')">Password is
+                        required
+                    </mat-error>
+                    <mat-error *ngIf="registrationForm.controls['password'].hasError('pattern')">Invalid Password
+                    </mat-error>
+                    <mat-hint>Password Format</mat-hint>
+                    <mat-icon matSuffix (click)="passwordVisibility()">{{showPassword ?
+                        'visibility':'visibility_off'}}</mat-icon>
+                </mat-form-field>
+
+            </div>
+
+        </form>
+    </div>
+
+    <app-pre-loader *ngIf="isLoading"></app-pre-loader>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!registrationForm.valid"
+        (click)="addNewUser()">Add User</button>
+</mat-dialog-actions>

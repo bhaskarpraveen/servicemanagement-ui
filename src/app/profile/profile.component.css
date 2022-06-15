@@ -1,0 +1,19 @@
+.container{
+    width: 900px;
+    margin-left: 15%;
+}
+
+.fields{
+    margin: 5% 3% 0%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 6%;
+    margin-top: 2%;
+}

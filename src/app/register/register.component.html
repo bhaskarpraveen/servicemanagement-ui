@@ -1,0 +1,79 @@
+<section class="main-wrapper-section">
+    <div class="container">
+        <h1>Register an Account</h1>
+        <div>
+            <form [formGroup]="registrationForm" class="fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput placeholder="Placeholder" formControlName="name">
+                    <mat-error *ngIf="registrationForm.controls['name'].hasError('required')">First name is
+                        required
+                    </mat-error>
+                    <mat-error *ngIf="registrationForm.controls['name'].hasError('pattern')">First name must
+                        contain
+                        only alphabetic characters</mat-error>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input type="text" matInput placeholder="Placeholder" formControlName="phoneNumber">
+                    <mat-error *ngIf="registrationForm.controls['phoneNumber'].hasError('required')">Phone number is
+                        required</mat-error>
+                    <mat-error *ngIf="registrationForm.controls['phoneNumber'].hasError('pattern')">Invalid Phone number
+                    </mat-error>
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email Address</mat-label>
+                    <input type="text" matInput placeholder="Placeholder" formControlName="emailAddress">
+                    <mat-error *ngIf="registrationForm.controls['emailAddress'].hasError('email')">Invalid email
+                    </mat-error>
+                    <mat-error *ngIf="registrationForm.controls['emailAddress'].hasError('required')">Email is required
+                    </mat-error>
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                </mat-form-field>
+
+                <div class="sub-fields">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input [type]="showPassword1 ? 'text' : 'password' " matInput placeholder="Placeholder"
+                            formControlName="password">
+                        <mat-error *ngIf="registrationForm.controls['password'].hasError('required')">Password is
+                            required
+                        </mat-error>
+                        <mat-error *ngIf="registrationForm.controls['password'].hasError('pattern')">Invalid Password
+                        </mat-error>
+                        <mat-hint>Password Format</mat-hint>
+                        <mat-icon matSuffix (click)="passwordVisibility1()">{{showPassword1 ?
+                            'visibility':'visibility_off'}}</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="confirm-pswd">
+                        <mat-label>Confirm Password</mat-label>
+                        <input [type]="showPassword2 ? 'text' : 'password' " matInput placeholder="Placeholder"
+                            formControlName="confirmPassword">
+                        <mat-error *ngIf="registrationForm.controls['confirmPassword'].hasError('required')">
+                            ConfirmPassword
+                            is
+                            required</mat-error>
+                        <mat-error *ngIf="registrationForm.controls['confirmPassword'].hasError('required')">Password
+                            and
+                            confirm password must match </mat-error>
+                        <mat-icon matSuffix (click)="passwordVisibility2()">{{showPassword2 ?
+                            'visibility':'visibility_off'}}</mat-icon>
+                    </mat-form-field>
+                </div>
+            </form>
+            <button mat-flat-button color="primary" class="register-button" (click)="registrationUser()"
+                [disabled]="!registrationForm.valid">Click here to
+                register</button>
+        </div>
+
+        <p>Already have an account? <a (click)="routerNavigate('login')" style="cursor: pointer;">Click here to
+                Login</a></p>
+    </div>
+    <app-pre-loader *ngIf="isLoading"></app-pre-loader>
+</section>

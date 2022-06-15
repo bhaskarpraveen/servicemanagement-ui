@@ -1,0 +1,8 @@
+.spinner{
+    position:fixed;
+    top: 40%;
+    left: 50%;
+    width:30em;
+    height:18em;
+    background-color:#ccc;
+}

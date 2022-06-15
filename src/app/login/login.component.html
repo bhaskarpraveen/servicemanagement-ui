@@ -1,0 +1,44 @@
+<section class="main-wrapper-section">
+    <div class="container">
+        <div class="wrapper-box left-container">
+            <h1>Welcome Back!</h1>
+            <p>To keep connected with us please login with your personal info</p>
+
+            <p>Doesn't have an account </p>
+            <button mat-flat-button color="primary" (click)="routerNavigate('register')">Register</button>
+        </div>
+        <div class="wrapper-box right-container">
+            <h1>User Login</h1>
+            <p>some demo text hello world</p>
+            <div class="form">
+                <form [formGroup]="signInForm">
+                    <mat-form-field appearance="outline">
+                        <mat-label>User Email</mat-label>
+                        <input type="text" matInput placeholder="Placeholder" formControlName="email">
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="signInForm.controls['email'].hasError('required')">email is required
+                        </mat-error>
+                        <mat-error *ngIf="signInForm.controls['email'].hasError('email')">Invalid Enail Address
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input [type]="showPassword ? 'text' : 'password' " matInput placeholder="Placeholder"
+                            formControlName="password">
+                        <mat-icon matSuffix style="cursor: pointer;" (click)="passwordVisibility()">{{showPassword ?
+                            'visibility':'visibility_off'}}</mat-icon>
+                        <mat-error *ngIf="signInForm.controls['password'].hasError('required')">Password is required
+                        </mat-error>
+                    </mat-form-field>
+                </form>
+            </div>
+            <button mat-flat-button color="primary" class="login-button" (click)="userLogin()"
+                [disabled]="!signInForm.valid">Login</button>
+
+            <p>Forgot Password? <a style="cursor: pointer;">Click here to
+                    reset</a></p>
+        </div>
+    </div>
+    <app-pre-loader *ngIf="isLoading"></app-pre-loader>
+</section>

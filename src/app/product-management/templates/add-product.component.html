@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Add New Product</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="form">
+        <form [formGroup]="productForm" class="fields">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Product Name</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="name">
+                <mat-error *ngIf="productForm.controls['name'].hasError('required')">Product name is
+                    required
+                </mat-error>
+                <mat-error *ngIf="productForm.controls['name'].hasError('pattern')">Product name must
+                    contain
+                    only alphabetic characters</mat-error>
+                <mat-icon matSuffix>account_circle</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>Make details</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="make">
+                <mat-error *ngIf="productForm.controls['make'].hasError('required')">Make details are
+                    required</mat-error>
+                <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Model details</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="model">
+                <mat-error *ngIf="productForm.controls['model'].hasError('required')">Model details are
+                    required
+                </mat-error>
+                <mat-icon matSuffix>alternate_email</mat-icon>
+            </mat-form-field>
+
+            <div class="sub-fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Cost details</mat-label>
+                    <input type="text" matInput placeholder="Placeholder" formControlName="cost">
+                    <mat-error *ngIf="productForm.controls['cost'].hasError('required')">Cost is required
+                    </mat-error>
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                </mat-form-field>
+            </div>
+
+        </form>
+    </div>
+
+    <app-pre-loader *ngIf="isLoading"></app-pre-loader>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!productForm.valid"
+        (click)="addNewProduct()">Add Product</button>
+</mat-dialog-actions>

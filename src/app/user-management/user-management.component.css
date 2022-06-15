@@ -1,0 +1,24 @@
+.container{
+    margin: 3%;
+}
+
+table {
+    width: 100%;
+}
+  
+.add-btn{
+    margin-left: 3%;
+    margin-top: 3%;
+}
+
+.fields{
+    display: flex;
+    justify-content: space-between;
+    margin: 3% 3% 0%;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.description{
+    width: 370%;
+}

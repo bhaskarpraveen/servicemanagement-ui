@@ -1,0 +1,15 @@
+<div class="main">
+    <div class="parent-container">
+        <div class="card" *ngFor="let i of letModuleDetails" (click)="routerNavigate(i.uri)">
+            <div class="icon">
+                <button mat-mini-fab>
+                    <mat-icon>{{i.icon}}</mat-icon>
+                </button>
+            </div>
+            <div class="content">
+                <div class="title">{{i.title}}</div>
+                <div class="description">{{i.description}}</div>
+            </div>
+        </div>
+    </div>
+</div>

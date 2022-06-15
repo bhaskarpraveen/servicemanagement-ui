@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Create New Service Request</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="form">
+        <form [formGroup]="serviceRequestForm" class="fields">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Product ID</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="productId">
+                <mat-error *ngIf="serviceRequestForm.controls['productId'].hasError('required')">Product ID is
+                    required
+                </mat-error>
+                <mat-icon matSuffix>account_circle</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="extra-field">
+                <mat-label>Status</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="status">
+                <mat-error *ngIf="serviceRequestForm.controls['status'].hasError('required')">Status is required
+                </mat-error>
+                <mat-icon matSuffix>alternate_email</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Problem Title</mat-label>
+                <input type="text" matInput placeholder="Placeholder" formControlName="problem">
+                <mat-error *ngIf="serviceRequestForm.controls['problem'].hasError('required')">Problem title is
+                    required
+                </mat-error>
+                <mat-icon matSuffix>alternate_email</mat-icon>
+            </mat-form-field>
+
+            <div class="sub-fields">
+                <mat-form-field appearance="outline" class="description">
+                    <mat-label>Description</mat-label>
+                    <textarea type="textarea" matInput placeholder="Placeholder"
+                        formControlName="description"></textarea>
+                    <mat-error *ngIf="serviceRequestForm.controls['description'].hasError('required')">Description is
+                        required
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div>
+
+        </form>
+    </div>
+
+    <app-pre-loader *ngIf="isLoading"></app-pre-loader>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!serviceRequestForm.valid"
+        (click)="addNewServiceReq()">Add Product</button>
+</mat-dialog-actions>

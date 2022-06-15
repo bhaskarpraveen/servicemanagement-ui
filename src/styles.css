@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+html, body { height: 100%; }
+body { margin: 0;  }
+
+.success-bar{
+    background-color: green;
+    color: #fff;
+}
+
+.error-bar{
+    background-color: rgb(250, 89, 89);
+    color: #fff;
+}
+
+.full-field{
+    width: 100%;
+}

@@ -1,0 +1,71 @@
+<section class="container">
+    <form [formGroup]="profileForm" class="fields">
+        <mat-form-field appearance="outline">
+            <mat-label>User ID</mat-label>
+            <input type="text" matInput placeholder="Placeholder" formControlName="id">
+            <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Registration Date</mat-label>
+            <input type="text" matInput placeholder="Placeholder" formControlName="registrationDate">
+            <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput placeholder="Placeholder" formControlName="name">
+            <mat-error *ngIf="profileForm.controls['name'].hasError('required')">First name is
+                required
+            </mat-error>
+            <mat-error *ngIf="profileForm.controls['name'].hasError('pattern')">First name must
+                contain
+                only alphabetic characters</mat-error>
+            <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input type="text" matInput placeholder="Placeholder" formControlName="phoneNumber">
+            <mat-error *ngIf="profileForm.controls['phoneNumber'].hasError('required')">Phone number is
+                required</mat-error>
+            <mat-error *ngIf="profileForm.controls['phoneNumber'].hasError('pattern')">Invalid Phone number
+            </mat-error>
+            <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input type="text" matInput placeholder="Placeholder" formControlName="emailAddress">
+            <mat-error *ngIf="profileForm.controls['emailAddress'].hasError('email')">Invalid email
+            </mat-error>
+            <mat-error *ngIf="profileForm.controls['emailAddress'].hasError('required')">email is required
+            </mat-error>
+            <mat-icon matSuffix>alternate_email</mat-icon>
+        </mat-form-field>
+
+        <div class="sub-fields">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input [type]="showPassword ? 'text' : 'password' " matInput placeholder="Placeholder"
+                    formControlName="password">
+                <mat-error *ngIf="profileForm.controls['password'].hasError('required')">Password is
+                    required
+                </mat-error>
+                <mat-error *ngIf="profileForm.controls['password'].hasError('pattern')">Invalid Password
+                </mat-error>
+                <mat-hint>Password Format</mat-hint>
+                <mat-icon matSuffix (click)="passwordVisibility()">{{showPassword ?
+                    'visibility':'visibility_off'}}</mat-icon>
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="btn">
+        <button mat-flat-button color="primary" class="update-button" (click)="updateUser()"
+            [disabled]="!profileForm.valid">Click here to
+            Update</button>
+    </div>
+</section>
+
+<app-pre-loader *ngIf="isLoading"></app-pre-loader>

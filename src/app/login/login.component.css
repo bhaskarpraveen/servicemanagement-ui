@@ -1,0 +1,53 @@
+.container:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.container .wrapper-box{
+    float: left;
+    width: 50%;
+    padding: 10px;
+    min-height: 480px;
+}
+
+.container .left-container{
+    background-color: #f3e5e5;
+    text-align: center;
+}
+
+.container .right-container{
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.container .right-container h1{
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 15%;
+}
+
+.container .left-container h1{
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 30%;
+}
+
+.container .right-container p{
+    font-size: 15px;
+    text-align: center;
+}
+
+.container .right-container .form mat-form-field{
+    width: 80%;
+}
+
+.container .right-container .login-button{
+    width: 30%;
+    margin-bottom: 8%;
+}
+
+.container .left-container button{
+    width: 30%;
+
+}
