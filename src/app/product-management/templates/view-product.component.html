@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>More Details | {{data.name}}</h2>
+<mat-dialog-content class="mat-typography">
+
+
+    <mat-list>
+        <mat-list-item>
+            <mat-icon mat-list-icon>tag</mat-icon>Product ID
+            <div mat-line>{{data.id}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>alternate_email</mat-icon>Product Name
+            <div mat-line>{{data.name}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>published_with_changes</mat-icon>Make
+            <div mat-line>{{data.make}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>chat</mat-icon>Model
+            <div mat-line>{{data.model}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>add_card</mat-icon>Cost
+            <div mat-line>{{data.cost}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>today</mat-icon>Created Date
+            <div mat-line>{{data.createdDate}}</div>
+        </mat-list-item>
+
+
+
+    </mat-list>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

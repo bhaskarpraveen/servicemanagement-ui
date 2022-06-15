@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class BackendApiServiceService {
 
   URL: string = 'http://localhost:';
+  token: any = sessionStorage.getItem('jwtAuthToken');
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   //snackbar common method
@@ -23,6 +24,18 @@ export class BackendApiServiceService {
       verticalPosition: 'top',
       horizontalPosition: 'end'
     })
+  }
+
+  validateToken() {
+    return this.http.get(`${this.URL}8008/authorization/validate`, {
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
+    }).pipe(map((data: any) => {
+      return {
+        data: data.body ? data.body : undefined,
+        statusCode: data.status
+      }
+    }))
   }
 
   login(userDetails: any) {
@@ -49,7 +62,8 @@ export class BackendApiServiceService {
 
   getRegisteredUsers() {
     return this.http.get(`${this.URL}8080/registration/user`, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -60,7 +74,8 @@ export class BackendApiServiceService {
 
   getSpecificUser(id: any) {
     return this.http.get(`${this.URL}8080/registration/user/id/${id}`, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -71,7 +86,8 @@ export class BackendApiServiceService {
 
   updatePorfile(details: any, id: any) {
     return this.http.put(`${this.URL}8080/registration/user/update/${id}`, details, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -82,7 +98,8 @@ export class BackendApiServiceService {
 
   updateSpecificUser(details: any, id: any) {
     return this.http.put(`${this.URL}8080/registration/user/update/${id}`, details, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -94,7 +111,8 @@ export class BackendApiServiceService {
 
   getAllProducts() {
     return this.http.get(`${this.URL}8081/productmanagement/product`, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -105,7 +123,20 @@ export class BackendApiServiceService {
 
   addNewProduct(productDetails: any) {
     return this.http.post(`${this.URL}8081/productmanagement/product`, productDetails, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
+    }).pipe(map((data: any) => {
+      return {
+        data: data.body ? data.body : undefined,
+        statusCode: data.status
+      }
+    }))
+  }
+
+  editProduct(productDetails: any, id: any) {
+    return this.http.post(`${this.URL}8081/productmanagement/product/update/${id}`, productDetails, {
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -116,7 +147,8 @@ export class BackendApiServiceService {
 
   deleteProduct(id: any) {
     return this.http.delete(`${this.URL}8081/productmanagement/product/${id}`, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -127,7 +159,8 @@ export class BackendApiServiceService {
 
   getAllServiceRequests() {
     return this.http.get(`${this.URL}8082/productservice/servicereq`, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -138,7 +171,8 @@ export class BackendApiServiceService {
 
   addServiceRequest(requestDetails: any) {
     return this.http.post(`${this.URL}8082/productservice/servicereq`, requestDetails, {
-      observe: 'response'
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,
@@ -148,8 +182,22 @@ export class BackendApiServiceService {
   }
 
   deleteServiceRequest(id: any) {
-    return this.http.delete(`${this.URL}8082/productservice/servicere/${id}`, {
-      observe: 'response'
+    return this.http.delete(`${this.URL}8082/productservice/servicereq/${id}`, {
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
+    }).pipe(map((data: any) => {
+      return {
+        data: data.body ? data.body : undefined,
+        statusCode: data.status
+      }
+    }))
+  }
+
+
+  editServiceRequest(requestDetails: any, id: any) {
+    return this.http.post(`${this.URL}8082/productservice/servicereq/update/${id}`, requestDetails, {
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {
       return {
         data: data.body ? data.body : undefined,

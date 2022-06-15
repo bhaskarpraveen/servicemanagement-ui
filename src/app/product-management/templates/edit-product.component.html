@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add New Product</h2>
+<h2 mat-dialog-title>Edit Product | {{data.name}}</h2>
 <mat-dialog-content class="mat-typography">
     <div class="form">
         <form [formGroup]="productForm" class="fields">
@@ -51,5 +51,5 @@
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!productForm.valid"
-        (click)="addNewProduct()">Add Product</button>
+        (click)="editProduct()">Update Product</button>
 </mat-dialog-actions>

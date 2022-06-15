@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
           this.isLoading = false;
         },
         (error: any) => {
-          console.error("REGISTER USER FAILED", error.error.message);
+          console.error("REGISTER USER FAILED", error);
           this.service.openSnackBar(`Unable to Register user please check input details or try again`, false);
           this.isLoading = false;
         }

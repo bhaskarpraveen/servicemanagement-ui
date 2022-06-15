@@ -60,7 +60,7 @@ export class UserManagementComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("Get users FAILED", error.error.message);
+        console.error("Get users FAILED", error);
         this.service.openSnackBar(`Unable to fetch users please try again`, false);
         this.isLoading = false;
         this.showError = true;
@@ -174,7 +174,7 @@ export class AddNewUser {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("REGISTER USER FAILED", error.error.message);
+        console.error("REGISTER USER FAILED", error);
         this.service.openSnackBar(`Unable to Register user please check input details or try again`, false);
         this.isLoading = false;
       }
@@ -233,7 +233,7 @@ export class EditUser {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("Update USER FAILED", error.error.message);
+        console.error("Update USER FAILED", error);
         this.service.openSnackBar(`Unable to Update user please check input details or try again`, false);
         this.isLoading = false;
       }

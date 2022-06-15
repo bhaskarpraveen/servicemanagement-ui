@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("Fetching User Failed", error.error.message);
+        console.error("Fetching User Failed", error);
         this.service.openSnackBar(`Unable to fetch user please check input details or try again`, false);
         this.isLoading = false;
       }
@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
       },
       (error: any) => {
-        console.error("Unable to update profile", error.error.message);
+        console.error("Unable to update profile", error);
         this.service.openSnackBar(`Unable to Update profile please check input details or try again`, false);
         this.isLoading = false;
       }
