@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BackendApiServiceService {
 
-  URL: string = 'http://localhost:8008/';
+  URL: string = 'http://localhost:';
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   //snackbar common method
@@ -26,7 +26,7 @@ export class BackendApiServiceService {
   }
 
   login(userDetails: any) {
-    return this.http.post(`${this.URL}authorization/user/login`, userDetails, {
+    return this.http.post(`${this.URL}8008/authorization/user/login`, userDetails, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -37,7 +37,7 @@ export class BackendApiServiceService {
   }
 
   register(userDetails: any) {
-    return this.http.post(`${this.URL}registration/user`, userDetails, {
+    return this.http.post(`${this.URL}8080/registration/user`, userDetails, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -48,7 +48,7 @@ export class BackendApiServiceService {
   }
 
   getRegisteredUsers() {
-    return this.http.get(`${this.URL}registration/user`, {
+    return this.http.get(`${this.URL}8080/registration/user`, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -59,7 +59,7 @@ export class BackendApiServiceService {
   }
 
   getSpecificUser(id: any) {
-    return this.http.get(`${this.URL}registration/user/id/${id}`, {
+    return this.http.get(`${this.URL}8080/registration/user/id/${id}`, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -70,7 +70,7 @@ export class BackendApiServiceService {
   }
 
   updatePorfile(details: any, id: any) {
-    return this.http.put(`${this.URL}registration/user/update/${id}`, details, {
+    return this.http.put(`${this.URL}8080/registration/user/update/${id}`, details, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -81,7 +81,7 @@ export class BackendApiServiceService {
   }
 
   updateSpecificUser(details: any, id: any) {
-    return this.http.put(`${this.URL}registration/user/update/${id}`, details, {
+    return this.http.put(`${this.URL}8080/registration/user/update/${id}`, details, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -93,7 +93,7 @@ export class BackendApiServiceService {
 
 
   getAllProducts() {
-    return this.http.get(`${this.URL}productmanagement/product`, {
+    return this.http.get(`${this.URL}8081/productmanagement/product`, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -104,7 +104,7 @@ export class BackendApiServiceService {
   }
 
   addNewProduct(productDetails: any) {
-    return this.http.post(`${this.URL}productmanagement/product`, productDetails, {
+    return this.http.post(`${this.URL}8081/productmanagement/product`, productDetails, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -115,7 +115,7 @@ export class BackendApiServiceService {
   }
 
   deleteProduct(id: any) {
-    return this.http.delete(`${this.URL}productmanagement/product/${id}`, {
+    return this.http.delete(`${this.URL}8081/productmanagement/product/${id}`, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -126,7 +126,7 @@ export class BackendApiServiceService {
   }
 
   getAllServiceRequests() {
-    return this.http.get(`${this.URL}productservice/servicereq`, {
+    return this.http.get(`${this.URL}8082/productservice/servicereq`, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -137,7 +137,7 @@ export class BackendApiServiceService {
   }
 
   addServiceRequest(requestDetails: any) {
-    return this.http.post(`${this.URL}productservice/servicereq`, requestDetails, {
+    return this.http.post(`${this.URL}8082/productservice/servicereq`, requestDetails, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
@@ -148,7 +148,7 @@ export class BackendApiServiceService {
   }
 
   deleteServiceRequest(id: any) {
-    return this.http.delete(`${this.URL}productservice/servicere/${id}`, {
+    return this.http.delete(`${this.URL}8082/productservice/servicere/${id}`, {
       observe: 'response'
     }).pipe(map((data: any) => {
       return {
