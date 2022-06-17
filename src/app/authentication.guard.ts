@@ -11,7 +11,7 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private service: BackendApiServiceService, private router: Router) { }
 
   async canActivate() {
-    if (localStorage.getItem('jwtAuthToken')) {
+    if (sessionStorage.getItem('jwtAuthToken')) {
       const tmp = await this.service.validateToken().toPromise();
 
       if (tmp && 'validStatus' in tmp['data'] && tmp['data']['validStatus'])

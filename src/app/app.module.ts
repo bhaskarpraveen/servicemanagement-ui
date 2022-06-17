@@ -30,6 +30,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 //guards
 import { AuthenticationGuard } from './authentication.guard';
@@ -43,11 +44,12 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserManagementComponent, AddNewUser, EditUser } from './user-management/user-management.component';
 import { ProductManagementComponent, AddNewProduct, ViewProduct, EditSelectedProduct } from './product-management/product-management.component';
-import { ServiceBookingComponent, AddServiceRequest, ViewServiceRequest, EditServiceRequest } from './service-booking/service-booking.component';
+import { ServiceBookingComponent, AddServiceRequest, ViewServiceRequest, EditServiceRequest, AddServiceReport } from './service-booking/service-booking.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PreLoaderComponent } from './ui-designes/pre-loader/pre-loader.component';
 import { MainLayoutComponent } from './ui-designes/main-layout/main-layout.component';
 import { MainServiceScreenComponent } from './main-service-screen/main-service-screen.component';
+import { ManageServiceReportsComponent, ViewServiceReport } from './manage-service-reports/manage-service-reports.component';
 
 
 
@@ -74,7 +76,10 @@ import { MainServiceScreenComponent } from './main-service-screen/main-service-s
     EditSelectedProduct,
     MainServiceScreenComponent,
     ViewServiceRequest,
-    EditServiceRequest
+    EditServiceRequest,
+    ManageServiceReportsComponent,
+    AddServiceReport,
+    ViewServiceReport
   ],
   imports: [
     BrowserModule,
@@ -99,7 +104,8 @@ import { MainServiceScreenComponent } from './main-service-screen/main-service-s
     MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [AuthenticationGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
