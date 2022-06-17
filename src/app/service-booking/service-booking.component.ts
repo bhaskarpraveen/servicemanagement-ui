@@ -18,7 +18,7 @@ export class tableFilter {
 })
 export class ServiceBookingComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'problem', 'details', 'edit', 'delete'];
+  displayedColumns: string[] = ['id', 'problem', 'details', 'edit', 'createReport', 'delete'];
   dataSource: any;
 
   isLoading: boolean = false;
@@ -132,6 +132,19 @@ export class ServiceBookingComponent implements OnInit {
 
   editRequest(element: any) {
     const dialogRef = this.dialog.open(EditServiceRequest, {
+      width: '900px',
+      data: element
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        //closed modal
+        if (result['event'] === 'success') this.ngOnInit();
+      }
+    })
+  }
+
+  createReport(element: any) {
+    const dialogRef = this.dialog.open(AddServiceReport, {
       width: '900px',
       data: element
     });
@@ -296,6 +309,68 @@ export class EditServiceRequest {
       (error: any) => {
         console.error("ADD Product FAILED", error);
         this.service.openSnackBar(`Unable to Update service request please check input details or try again`, false);
+        this.isLoading = false;
+      }
+    )
+  }
+}
+
+
+//to create reports
+@Component({
+  selector: 'add-service-report',
+  templateUrl: '../manage-service-reports/templates/add-service-report.component.html',
+  styleUrls: ['../manage-service-reports/manage-service-reports.component.css']
+})
+export class AddServiceReport {
+
+  serviceReportForm: FormGroup;
+  isLoading: boolean = false;
+
+  serviceRequestsIds: any = [];
+
+  constructor(public dialogRef: MatDialogRef<AddServiceReport>, @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private service: BackendApiServiceService) {
+    this.serviceReportForm = this.fb.group({
+      serviceId: [{ value: data['id'], disabled: true }, [Validators.required]],
+      serviceType: ['', [Validators.required]],
+      actionTaken: ['', [Validators.required]],
+      diagnosisDetails: ['', [Validators.required]],
+      ispaid: ['', [Validators.required]],
+      visitfees: ['', [Validators.required]],
+      repairdetails: ['', [Validators.required]]
+    })
+  }
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  addNewServiceReport() {
+    this.isLoading = true;
+    let details = {
+      "servicetype": this.serviceReportForm.value.serviceType,
+      "actionTaken": this.serviceReportForm.value.actionTaken,
+      "diagnosisDetails": this.serviceReportForm.value.diagnosisDetails,
+      "ispaid": this.serviceReportForm.value.ispaid,
+      "visitfees": this.serviceReportForm.value.visitfees,
+      "repairdetails": this.serviceReportForm.value.repairdetails
+    };
+
+    this.service.addServiceReport(details, this.data['id']).subscribe(
+      (data: any) => {
+        if (data['data'] && data['statusCode'] && data['statusCode'] >= 200 && data['statusCode'] <= 299) {
+          this.service.openSnackBar(`${data['data']['problem']} added successfully`, true);
+          this.dialogRef.close({ event: 'Success' })
+        }
+        else {
+          this.service.openSnackBar('Unable to process request! Invalid response! Check logs for more details', false);
+        }
+        this.isLoading = false;
+      },
+      (error: any) => {
+        console.error("ADD Product FAILED", error);
+        this.service.openSnackBar(`Unable to add service report please check input details or try again`, false);
         this.isLoading = false;
       }
     )

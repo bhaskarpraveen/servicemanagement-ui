@@ -1,0 +1,90 @@
+<h2 mat-dialog-title>Service Report | {{data.problem}}</h2>
+<mat-dialog-content class="mat-typography">
+
+    <form [formGroup]="serviceReportForm" class="fields">
+        <div class="form">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Service ID</mat-label>
+                <input type="text" matInput formControlName="serviceId">
+                <mat-error *ngIf="serviceReportForm.controls['serviceId'].hasError('required')">Service ID is
+                    required
+                </mat-error>
+                <mat-icon matSuffix>tag</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>Service Type</mat-label>
+                <input type="text" matInput formControlName="serviceType">
+                <mat-error *ngIf="serviceReportForm.controls['serviceType'].hasError('required')">Service type is
+                    required
+                </mat-error>
+                <mat-icon matSuffix>alternate_email</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Action Taken</mat-label>
+                <input type="text" matInput formControlName="actionTaken">
+                <mat-error *ngIf="serviceReportForm.controls['actionTaken'].hasError('required')">Action is
+                    required
+                </mat-error>
+                <mat-icon matSuffix>published_with_changes</mat-icon>
+            </mat-form-field>
+
+
+
+
+        </div>
+
+        <div class="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Is Paid</mat-label>
+                <input type="text" matInput formControlName="ispaid">
+                <mat-error *ngIf="serviceReportForm.controls['ispaid'].hasError('required')">
+                    Required field
+                </mat-error>
+                <mat-icon matSuffix>credit_score</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Visit Fees</mat-label>
+                <input type="text" matInput formControlName="visitfees">
+                <mat-error *ngIf="serviceReportForm.controls['visitfees'].hasError('required')">
+                    Required field
+                </mat-error>
+                <mat-icon matSuffix>payments</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="textarea">
+            <mat-label>Diagnosis Details</mat-label>
+            <textarea type="text" matInput formControlName="diagnosisDetails"></textarea>
+            <mat-error *ngIf="serviceReportForm.controls['diagnosisDetails'].hasError('required')">Diagnosis details
+                are
+                required
+            </mat-error>
+            <!-- <mat-icon matSuffix>info</mat-icon> -->
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field appearance="outline" class="textarea">
+            <mat-label>Repair Details</mat-label>
+            <textarea type="text" matInput formControlName="repairdetails"></textarea>
+            <mat-error *ngIf="serviceReportForm.controls['repairdetails'].hasError('required')">
+                Required field
+            </mat-error>
+            <!-- <mat-icon matSuffix>info</mat-icon> -->
+        </mat-form-field>
+
+
+    </form>
+
+    <app-pre-loader *ngIf="isLoading"></app-pre-loader>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!serviceReportForm.valid"
+        (click)="addNewServiceReport()">Create Service Report</button>
+</mat-dialog-actions>

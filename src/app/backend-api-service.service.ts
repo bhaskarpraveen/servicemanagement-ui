@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class BackendApiServiceService {
 
   URL: string = 'http://localhost:';
-  token: any = sessionStorage.getItem('jwtAuthToken');
+  token: any = 'Bearer ' + sessionStorage.getItem('jwtAuthToken');
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   //snackbar common method
@@ -27,6 +27,7 @@ export class BackendApiServiceService {
   }
 
   validateToken() {
+    this.token = 'Bearer ' + sessionStorage.getItem('jwtAuthToken');
     return this.http.get(`${this.URL}8008/authorization/validate`, {
       observe: 'response',
       headers: new HttpHeaders().append('Authorization', this.token)
@@ -196,6 +197,42 @@ export class BackendApiServiceService {
 
   editServiceRequest(requestDetails: any, id: any) {
     return this.http.post(`${this.URL}8082/productservice/servicereq/update/${id}`, requestDetails, {
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
+    }).pipe(map((data: any) => {
+      return {
+        data: data.body ? data.body : undefined,
+        statusCode: data.status
+      }
+    }))
+  }
+
+  addServiceReport(requestDetails: any, id: any) {
+    return this.http.post(`${this.URL}8082/productservice/servicereq/${id}/report`, requestDetails, {
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
+    }).pipe(map((data: any) => {
+      return {
+        data: data.body ? data.body : undefined,
+        statusCode: data.status
+      }
+    }))
+  }
+
+  getAllServiceReports() {
+    return this.http.get(`${this.URL}8082/productservice/servicereq/report`, {
+      observe: 'response',
+      headers: new HttpHeaders().append('Authorization', this.token)
+    }).pipe(map((data: any) => {
+      return {
+        data: data.body ? data.body : undefined,
+        statusCode: data.status
+      }
+    }))
+  }
+
+  getMyServiceReports(userid: any) {
+    return this.http.get(`${this.URL}8082/productservice/servicereq/report/userid/${userid}`, {
       observe: 'response',
       headers: new HttpHeaders().append('Authorization', this.token)
     }).pipe(map((data: any) => {

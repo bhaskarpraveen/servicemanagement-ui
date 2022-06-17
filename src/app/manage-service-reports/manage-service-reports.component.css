@@ -1,0 +1,15 @@
+
+
+.form{
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.form mat-form-field{
+    margin-right: 3%;
+}
+
+.textarea{
+    width: 75%;
+}

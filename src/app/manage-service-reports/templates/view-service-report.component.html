@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>More Details | {{data.servicetype}}</h2>
+<mat-dialog-content class="mat-typography">
+
+
+    <mat-list>
+        <mat-list-item>
+            <mat-icon mat-list-icon>tag</mat-icon>Report ID
+            <div mat-line> {{data.id}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>closed_caption</mat-icon>Service Type
+            <div mat-line>{{data.servicetype}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>today</mat-icon>Reported Date
+            <div mat-line>{{data.reportdate}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>published_with_changes</mat-icon>Action Taken
+            <div mat-line>{{data.actionTaken}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>credit_score</mat-icon>Is Paid
+            <div mat-line>{{data.ispaid}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>credit_score</mat-icon>Visit Fees
+            <div mat-line>{{data.visitfees}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>info</mat-icon>Diagnosis Details
+            <div mat-line>{{data.diagnosisDetails}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>info</mat-icon>Repair Details
+            <div mat-line>{{data.repairdetails}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+
+
+
+
+    </mat-list>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
