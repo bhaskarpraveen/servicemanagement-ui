@@ -24,7 +24,7 @@ export class ProductManagementComponent implements OnInit {
     this.showError = false;
 
     this.getProducts();
-    this.dataSource = new MatTableDataSource(this.fakeProductsData);
+    //this.dataSource = new MatTableDataSource(this.fakeProductsData);
   }
 
   applyFilter(event: Event) {

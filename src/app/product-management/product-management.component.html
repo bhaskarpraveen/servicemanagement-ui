@@ -1,7 +1,7 @@
 <button mat-flat-button color="primary" class="add-btn" (click)="addProduct()">Add New Product</button>
 
-<!-- <section class="container" *ngIf="!showError"> -->
-<section class="container">
+<section class="container" *ngIf="!showError">
+    <!-- <section class="container"> -->
 
     <mat-form-field appearance="fill" class="full-field">
         <mat-label>Filter</mat-label>
@@ -49,8 +49,8 @@
     </table>
 </section>
 
-<!-- <div *ngIf="showError">
+<div *ngIf="showError">
     <h1>Some thing went wrong while fething Products</h1>
-</div> -->
+</div>
 
 <app-pre-loader *ngIf="isLoading"></app-pre-loader>

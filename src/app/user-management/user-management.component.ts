@@ -24,7 +24,7 @@ export class UserManagementComponent implements OnInit {
     this.showError = false;
 
     this.getRegisteredUsers();
-    this.dataSource = new MatTableDataSource(this.fakeUsersData);
+    //this.dataSource = new MatTableDataSource(this.fakeUsersData);
   }
 
   applyFilter(event: Event) {

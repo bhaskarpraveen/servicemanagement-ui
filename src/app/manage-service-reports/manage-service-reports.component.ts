@@ -20,6 +20,10 @@ export class ManageServiceReportsComponent implements OnInit {
   showError: boolean = false;
   checked: boolean = false;
 
+  seviceReportIdList: any;
+  selectedReportId: any;
+  allServiceReports: any;
+
   constructor(private service: BackendApiServiceService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -27,13 +31,37 @@ export class ManageServiceReportsComponent implements OnInit {
     this.showError = false;
 
     this.getAllServiceReports();
-    this.dataSource = new MatTableDataSource(this.fakeReportsData);
+    //this.dataSource = new MatTableDataSource(this.fakeReportsData);
 
+    //development code
+    // this.seviceReportIdList = [];
+    // this.fakeReportsData.forEach(element => {
+    //   this.seviceReportIdList.push({ id: element.id })
+    // });
+    // this.allServiceReports = this.fakeReportsData;
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  filterId() {
+
+    let currentData: any = [];
+
+    if (this.selectedReportId != 'all') {
+      this.allServiceReports.forEach((element: any) => {
+        if (element.id === this.selectedReportId) currentData.push(element);
+      });
+
+      this.dataSource = new MatTableDataSource(currentData);
+    }
+    else {
+      this.dataSource = new MatTableDataSource(this.allServiceReports);
+    }
+
+
   }
 
 
@@ -50,11 +78,18 @@ export class ManageServiceReportsComponent implements OnInit {
             //there are service requests
             this.showError = false;
             this.dataSource = new MatTableDataSource(data['data']);
+            this.allServiceReports = data['data'];
+
+            this.seviceReportIdList = [];
+            data['data'].forEach((element: any) => {
+              this.seviceReportIdList.push({ id: element.id });
+            });
           }
           else {
             this.service.openSnackBar(`No Service Reports present in database`, false);
             this.showError = false;
             this.dataSource = [];
+            this.seviceReportIdList = [];
             //no serice requests - count 0
           }
         }
@@ -86,11 +121,18 @@ export class ManageServiceReportsComponent implements OnInit {
             //there are service requests
             this.showError = false;
             this.dataSource = new MatTableDataSource(data['data']);
+            this.allServiceReports = data['data'];
+
+            this.seviceReportIdList = [];
+            data['data'].forEach((element: any) => {
+              this.seviceReportIdList.push({ id: element.id });
+            });
           }
           else {
             this.service.openSnackBar(`No Service Reports present in database`, false);
             this.showError = false;
             this.dataSource = [];
+            this.seviceReportIdList = [];
             //no serice requests - count 0
           }
         }

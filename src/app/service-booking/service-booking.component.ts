@@ -23,6 +23,7 @@ export class ServiceBookingComponent implements OnInit {
 
   isLoading: boolean = false;
   showError: boolean = false;
+  checked: boolean = false;
 
 
   filterEntity: tableFilter = new tableFilter;
@@ -35,7 +36,7 @@ export class ServiceBookingComponent implements OnInit {
     this.showError = false;
 
     this.getAllServiceRequests();
-    this.dataSource = new MatTableDataSource(this.fakeServiceRequestsData);
+    //this.dataSource = new MatTableDataSource(this.fakeServiceRequestsData);
 
     this.filterEntity = new tableFilter();
     this.filterType = MatTableFilter.ANYWHERE;
@@ -47,10 +48,56 @@ export class ServiceBookingComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  toggleReports() {
+    if (!this.checked) {
+      let id = sessionStorage.getItem("userId");
+      this.getMyServiceRequests(id);
+    }
+    else {
+      this.getAllServiceRequests();
+    }
+  }
+
   getAllServiceRequests() {
     this.isLoading = true;
 
     this.service.getAllServiceRequests().subscribe(
+      (data: any) => {
+        if (data['data'] && data['statusCode'] && data['statusCode'] >= 200 && data['statusCode'] <= 299) {
+
+          this.service.openSnackBar(`Service Requests fetched successfully`, true);
+
+          if (data['data'].length > 0) {
+            //there are service requests
+            this.showError = false;
+            this.dataSource = new MatTableDataSource(data['data']);
+          }
+          else {
+            this.service.openSnackBar(`No Service requests present in database`, false);
+            this.showError = false;
+            this.dataSource = [];
+            //no serice requests - count 0
+          }
+        }
+        else {
+          this.showError = true;
+          this.service.openSnackBar('Unable to process request! Invalid response! Check logs for more details', false);
+        }
+        this.isLoading = false;
+      },
+      (error: any) => {
+        console.error("Get Service Requests Failed", error);
+        this.service.openSnackBar(`Unable to fetch service requests please try again`, false);
+        this.isLoading = false;
+        this.showError = true;
+      }
+    );
+  }
+
+  getMyServiceRequests(id: any) {
+    this.isLoading = true;
+
+    this.service.getMyServiceRequests(id).subscribe(
       (data: any) => {
         if (data['data'] && data['statusCode'] && data['statusCode'] >= 200 && data['statusCode'] <= 299) {
 

@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: MainLayoutComponent,
-    //canActivate: [AuthenticationGuard],
+    canActivate: [AuthenticationGuard],
     children: [
       { path: 'user-dashboard', component: UserDashboardComponent },
       { path: 'profile-settings', component: ProfileComponent },
