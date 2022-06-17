@@ -185,7 +185,7 @@ export class ManageServiceReportsComponent implements OnInit {
       body: rows,
       didDrawCell: (data) => { },
     })
-    doc.save('Test.pdf');
+    doc.save(`${element.id}.pdf`);
 
   }
 
